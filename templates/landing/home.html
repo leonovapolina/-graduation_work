@@ -1,0 +1,58 @@
+{% extends 'base.html' %}  <!-- наследуемся от шаблона base -->
+{% load static %}
+
+
+{% block content %}
+    <div class="section-top">
+        <img src="{% static 'image/slider.jpg' %}" class="img-responsive">
+    </div>
+    <div class="section section1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="text-center">
+                        Все товары
+                    </h1>
+                </div>
+                {% for product_photo in products_photos %}  {# выводим продукты #}
+                    {% include 'landing/product_item.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="section section-promo">
+         <div>
+            <h3>При заказе от двух букетов Вы получите промокод на скидку на следующий заказ</h3>
+        </div>
+    </div>
+    <div class="section section2 berrymix-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="text-center">
+                        Ягодные миксы
+                    </h1>
+                </div>
+                {% for product_photo in products_photos_berrymix %}  {# выводим продукты #}
+                    {% include 'landing/product_item.html' %}
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    <div class="section section3 strawberry-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="text-center">
+                        Клубника в шоколаде
+                    </h1>
+                </div>
+                {% for product_photo in products_photos_strawberry %}  {# выводим продукты #}
+                    {% include 'landing/product_item.html' %}
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}

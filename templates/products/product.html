@@ -1,0 +1,102 @@
+{% extends 'base.html' %}  <!-- наследуемся от шаблона base -->
+{% load static %}
+
+{% block title %}<title>About product</title>{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+{#                {% for photo_item in product.productphoto_set.all %}  {# все фото товара #}
+{#                    <div class="product-image-item">#}
+{#                        <img src="{{ photo_item.photo.url }}" class="img-responsive">#}
+{#                    </div>#}
+{#                {% endfor %}#}
+
+                <div id="carouselControls" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+                      {% for photo_item in product.productphoto_set.all %}
+                          {% if forloop.counter == 1 %}
+                          <div class="item active">
+                          {% else %}
+                          <div class="item">
+                          {% endif %}
+                            <img class="img-responsive" src="{{ photo_item.photo.url }}" alt="">
+                          </div>
+                      {% endfor %}
+                  </div>
+                  <a class="left carousel-control" href="#carouselControls" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="right carousel-control" href="#carouselControls" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <h1 class="text-center">
+                    {{ product.name }}
+                </h1>
+                <div class="product-price">
+                    <h3>
+                        Цена: {{ product.price }}
+                    </h3>
+                </div>
+                <div>
+                      <!-- Nav tabs -->
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#description" aria-controls="description" role="tab" data-toggle="tab">
+                                Описание
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#delivery" aria-controls="delivery" role="tab" data-toggle="tab">
+                                Доставка
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#payment" aria-controls="payment" role="tab" data-toggle="tab">
+                                Оплата
+                            </a>
+                        </li>
+                      </ul>
+
+                      <!-- Tab panes -->
+                      <div class="tab-content product-description-tabs">
+                        <div role="tabpanel" class="tab-pane active" id="description">
+                            {{ product.description }}
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="delivery">
+                            Доставка бесплатная, осуществляется курьером.<br>
+                            Срок доставки от 4 часов с момента заказа.
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="payment">
+                            Оплата возможна наличными или картой<br>
+                            курьеру при получении.
+                        </div>
+                      </div>
+                </div>
+                <div>
+                    <form id="form_buying_product" class="form-inline my-form" action="{% url 'basket_adding' %}">{% csrf_token %}
+                        <div class="form-group">
+                            <input type="number" class="form-control" name="number" id="number" value="1">
+                        </div>
+                        <div class="form-group">
+                            <button  type="submit" id="submit_btn" class="btn btn-success btn-buy btn-dark_blue"
+                                data-product_id = "{{ product.id }}"
+                                data-name = "{{ product.name }}"
+                                data-price = "{{ product.price }}"
+                            >
+                                Добавить
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
